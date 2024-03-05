@@ -32,9 +32,9 @@ class Record:
         self.phones = [p for p in self.phones if str(p) != phone]
 
     def edit_phone(self, old_phone, new_phone):  # Редагування номера телефону у записі
-        for idx, phone in enumerate(self.phones):
+        for phone_num, phone in enumerate(self.phones):
             if str(phone) == old_phone:
-                self.phones[idx] = Phone(new_phone)
+                self.phones[phone_num] = Phone(new_phone)
                 break
 
     def find_phone(self, phone):            # Пошук номера телефону у записі
@@ -63,33 +63,3 @@ class AddressBook(UserDict):
 if __name__ == "__main__":                   # Створення нової адресної книги
     
     book = AddressBook()
-
-# Створення запису для John
-    john_record = Record("John")
-    john_record.add_phone("1234567890")
-    john_record.add_phone("5555555555")
-
-    # Додавання запису John до адресної книги
-    book.add_record(john_record)
-
-    # Створення та додавання нового запису для Jane
-    jane_record = Record("Jane")
-    jane_record.add_phone("9876543210")
-    book.add_record(jane_record)
-
-    # Виведення всіх записів у книзі
-    for name, record in book.data.items():
-        print(record)
-
-    # Знаходження та редагування телефону для John
-    john = book.find("John")
-    john.edit_phone("1234567890", "1112223333")
-
-    print(john)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
-
-    # Пошук конкретного телефону у записі John
-    found_phone = john.find_phone("5555555555")
-    print(f"{john.name}: {found_phone}")  # Виведення: 5555555555
-
-    # Видалення запису Jane
-    book.delete("Jane")
